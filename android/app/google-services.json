@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "233091820207",
+    "project_id": "louvor-ics-patos",
+    "storage_bucket": "louvor-ics-patos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233091820207:android:ee8bd52f5fce725836425a",
+        "android_client_info": {
+          "package_name": "br.com.igrejacristosalva.louvor_ics_patos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "233091820207-sdi691k190dbuo8k6norimkcm163775n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.igrejacristosalva.louvor_ics_patos",
+            "certificate_hash": "5d671da087d8a111f78b86faf09095e902ad4a77"
+          }
+        },
+        {
+          "client_id": "233091820207-pgjd5jeabqmksa6pj05e3te9so0i04u2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo4ZTBVGhUpaqFH09iPSZ3O7fBnIeyCLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "233091820207-pgjd5jeabqmksa6pj05e3te9so0i04u2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
