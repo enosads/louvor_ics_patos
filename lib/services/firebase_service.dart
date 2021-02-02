@@ -4,6 +4,8 @@ import 'package:louvor_ics_patos/utils/api_response.dart';
 class FirebaseService {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
 
+
+
   static Future<ApiResponse> login(String email, String senha) async {
     try {
       //Login no Firebase

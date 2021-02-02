@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:louvor_ics_patos/pages/login/login_page_controller.dart';
 import 'package:louvor_ics_patos/utils/cores.dart';
 import 'package:louvor_ics_patos/widgets/app_button.dart';
@@ -40,12 +42,35 @@ class LoginPage extends StatelessWidget {
                           controller: _.tEmail,
                           keyboardType: TextInputType.emailAddress,
                           label: 'E-mail',
+                          nextFocus: _.focusSenha,
+                          textInputAction: TextInputAction.next,
                         ),
                         SizedBox(height: 24.0),
-                        AppText(
-                          controller: _.tSenha,
-                          label: 'Senha',
-                          password: true,
+                        Obx(
+                          () => Stack(
+                            children: [
+                              AppText(
+                                focusNode: _.focusSenha,
+                                controller: _.tSenha,
+                                label: 'Senha',
+                                password: _.obscureTextSenha.value,
+                                onFieldSubmitted: (next) => _.onClickLogin(),
+                              ),
+                              Container(
+                                alignment: Alignment.centerRight,
+                                margin: EdgeInsets.only(right: 8),
+                                child: IconButton(
+                                  icon: Icon(
+                                    _.obscureTextSenha.value
+                                        ? LineAwesomeIcons.eye
+                                        : LineAwesomeIcons.eye_slash,
+                                    color: Cores.primary,
+                                  ),
+                                  onPressed: _.onPressedObscureSenha,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                         SizedBox(height: 24.0),
                         AppButton(
@@ -59,13 +84,13 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              // Obx(() => _.loading.value
-              //     ? Container(
-              //   color: Cores.primary.withOpacity(0.5),
-              //   alignment: Alignment.center,
-              //   child: CircularProgressIndicator(),
-              // )
-              //     : Container())
+              Obx(() => _.loading.value
+                  ? Container(
+                      color: Cores.primary.withOpacity(0.5),
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(),
+                    )
+                  : Container())
             ],
           ),
         );

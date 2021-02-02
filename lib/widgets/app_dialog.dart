@@ -10,8 +10,7 @@ class AppDialog {
   Function onCancel;
   Color colorConfirm;
 
-  AppDialog(
-    this.content, {
+  AppDialog(this.content, {
     this.textCancel,
     this.textConfirm,
     this.onConfirm,
@@ -19,7 +18,8 @@ class AppDialog {
     this.colorConfirm,
   });
 
-  show() => Get.defaultDialog(
+  show() =>
+      Get.defaultDialog(
         title: 'Louvor ICS Patos',
         content: content,
         textCancel: textCancel != null ? textCancel : null,
@@ -28,7 +28,7 @@ class AppDialog {
           color: colorConfirm != null ? colorConfirm : Cores.primary,
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
           child: Text(
             textConfirm != null ? textConfirm : 'Sim',
             style: TextStyle(color: Colors.white),

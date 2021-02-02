@@ -192,7 +192,7 @@ class LouvoresPage extends StatelessWidget {
       return Center(
           child: Text(_.status.value == 'Todos'
               ? 'Nenhum louvor cadastrado'
-              : 'Não louvores com o status: ${_.status.value}'));
+              : 'Não há louvores com o status: ${_.status.value}'));
     }
     bool encontrado = false;
     louvores.forEach((louvor) {

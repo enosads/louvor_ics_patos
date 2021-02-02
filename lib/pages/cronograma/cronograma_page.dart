@@ -6,7 +6,6 @@ import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:louvor_ics_patos/models/evento_model.dart';
 import 'package:louvor_ics_patos/models/louvor_model.dart';
 import 'package:louvor_ics_patos/pages/cronograma/cronograma_page_controller.dart';
-import 'package:louvor_ics_patos/pages/cronograma/drawer_list.dart';
 import 'package:louvor_ics_patos/pages/louvores/louvor_loading_shimmer.dart';
 import 'package:louvor_ics_patos/pages/louvores/louvor_tile.dart';
 import 'package:louvor_ics_patos/pages/selecionar_louvores/selecionar_louvores_page.dart';
@@ -27,7 +26,6 @@ class CronogramaPage extends StatelessWidget {
             centerTitle: true,
           ),
           body: buildBody(_),
-          drawer: AppDrawerList(),
           floatingActionButton: FloatingActionButton(
             heroTag: 'cronograma_fab',
             onPressed: () => Get.to(SelecionarLouvoresPage()),
@@ -117,9 +115,14 @@ class CronogramaPage extends StatelessWidget {
                                 onTap: () {
                                   Get.back();
                                   AppDialog(
-                                          AutoSizeText(
-                                              'Deseja realmente deletar o culto?'),
-                                          onConfirm: () {
+                                          Container(
+                                            height: 36,
+                                            width: Get.width,
+                                            child: AutoSizeText(
+                                              'Deseja realmente deletar o culto?',
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ), onConfirm: () {
                                     Get.back();
                                     evento.reference.delete();
                                   },
@@ -137,7 +140,8 @@ class CronogramaPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 16.0, bottom: 16.0, left: 16.0, right: 40),
+                    margin: EdgeInsets.only(
+                        top: 16.0, bottom: 16.0, left: 16.0, right: 40),
                     child: AutoSizeText(
                       DateUtil.formatDateTimeDescrito(evento.horario),
                       maxLines: 1,

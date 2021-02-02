@@ -1,20 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Usuario {
-  String id;
   String perfil;
   String nome;
-  Timestamp dataNascimento;
   DocumentReference reference;
 
   List<String> instrumentos;
 
+  Usuario.fromSnapshot(DocumentSnapshot documentSnapshot) {
+    reference = documentSnapshot.reference;
+    perfil = documentSnapshot.data()['perfil'];
+    nome = documentSnapshot.data()['nome'];
+    instrumentos = documentSnapshot.data()['instrumentos'].cast<String>();
+  }
+
   Usuario.fromMap(Map<String, dynamic> map) {
-    id = map['id'];
     perfil = map['perfil'];
     nome = map['nome'];
-    reference = map['reference'];
-    dataNascimento = map['dataNascimento'];
     instrumentos = map['instrumentos'].cast<String>();
   }
 
@@ -22,7 +24,6 @@ class Usuario {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['perfil'] = this.perfil;
     data['nome'] = this.nome;
-    data['dataNascimento'] = this.dataNascimento.toString();
     data['instrumentos'] = this.instrumentos;
     return data;
   }

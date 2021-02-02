@@ -35,10 +35,10 @@ class HomePage extends StatelessWidget {
                       label: 'Louvores',
                       icon: Icon(LineAwesomeIcons.music),
                     ),
-                    // BottomNavigationBarItem(
-                    //   label: 'Perfil',
-                    //   icon: Icon(LineAwesomeIcons.user),
-                    // ),
+                    BottomNavigationBarItem(
+                      label: 'Perfil',
+                      icon: Icon(LineAwesomeIcons.user),
+                    ),
                   ],
                 ),
               ),
@@ -48,4 +48,7 @@ class HomePage extends StatelessWidget {
       },
     );
   }
+
+
+
 }

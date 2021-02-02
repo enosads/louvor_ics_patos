@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:louvor_ics_patos/firebase/firebase_api.dart';
 import 'package:louvor_ics_patos/models/evento_model.dart';
 import 'package:louvor_ics_patos/pages/home/home_page.dart';
 import 'package:louvor_ics_patos/pages/selecionar_louvores/selecionar_louvores_page_controller.dart';
+import 'package:louvor_ics_patos/services/onesignal_service.dart';
 import 'package:louvor_ics_patos/utils/date_utils.dart';
 import 'package:louvor_ics_patos/widgets/app_dialog.dart';
 
@@ -60,15 +60,14 @@ class HorarioPageController extends GetxController {
       DateTime horario = DateUtil.parse('${tData.text} - ${tHora.text}');
       if (horario.isAfter(DateTime.now())) {
         if (evento == null) {
-          FirebaseFirestore.instance.collection('eventos').doc().set(
-              Evento(
-                      horario: horario,
-                      louvoresReference: SelecionarLouvoresPageController
-                          .to.louvoresSelecionados
-                          .map((element) => element.reference)
-                          .toList())
-                  .toMap());
-          FirebaseApi.notificar(
+          FirebaseFirestore.instance.collection('eventos').doc().set(Evento(
+                  horario: horario,
+                  louvoresReference: SelecionarLouvoresPageController
+                      .to.louvoresSelecionados
+                      .map((element) => element.reference)
+                      .toList())
+              .toMap());
+          OnesignalService.notificar(
               "${DateUtil.formatDateTimeNotificacao(horario)}",
               "${SelecionarLouvoresPageController.to.louvoresSelecionados.join('\n')}");
         } else {
@@ -79,7 +78,7 @@ class HorarioPageController extends GetxController {
                       .map((element) => element.reference)
                       .toList())
               .toMap());
-          FirebaseApi.notificar(
+          OnesignalService.notificar(
               "${DateUtil.formatDateTimeNotificacao(horario)}",
               "${SelecionarLouvoresPageController.to.louvoresSelecionados.join('\n')}");
         }

@@ -10,16 +10,15 @@ void main() {
       navigatorKey: Get.key,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        accentColor: Cores.primary,
-        primaryColor: Cores.primary
-      ),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+
+          accentColor: Cores.primary,
+          primaryColor: Cores.primary),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
       supportedLocales: [const Locale('pt', 'BR')],
-
       home: SplashPage(),
     ),
   );
