@@ -29,6 +29,5 @@ class SelecionarLouvoresPageController extends GetxController {
 
   Future<void> fetchLouvores() async {
     louvoresSelecionados.addAll(await evento.getLouvores());
-
   }
 }

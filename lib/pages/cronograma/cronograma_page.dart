@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:louvor_ics_patos/models/evento_model.dart';
+import 'package:louvor_ics_patos/models/grupo_model.dart';
 import 'package:louvor_ics_patos/models/louvor_model.dart';
 import 'package:louvor_ics_patos/pages/cronograma/cronograma_page_controller.dart';
+import 'package:louvor_ics_patos/pages/grupo/grupo_page.dart';
 import 'package:louvor_ics_patos/pages/louvores/louvor_loading_shimmer.dart';
 import 'package:louvor_ics_patos/pages/louvores/louvor_tile.dart';
 import 'package:louvor_ics_patos/pages/selecionar_louvores/selecionar_louvores_page.dart';
@@ -81,77 +83,113 @@ class CronogramaPage extends StatelessWidget {
 
         return Card(
           child: Container(
-            height: (evento.louvoresReference.length * 70) + 59.0,
+            height: (evento.louvoresReference.length * 70) + 60.0,
             // height: 400,
             child: ReorderableListViewApp(
               padding: EdgeInsets.all(0),
-              header: Stack(
+              header: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    alignment: Alignment.bottomRight,
-                    child: IconButton(
-                      icon: Icon(LineAwesomeIcons.ellipsis_v),
-                      onPressed: () => Get.dialog(Dialog(
-                        child: Container(
-                          height: 112,
-                          width: Get.width,
-                          child: Column(
-                            children: [
-                              ListTile(
-                                leading: Icon(
-                                  LineAwesomeIcons.edit,
-                                ),
-                                onTap: () => Get.off(
-                                  SelecionarLouvoresPage(
-                                    evento: evento,
+                  Stack(
+                    children: [
+                      Container(
+                        alignment: Alignment.bottomRight,
+                        child: IconButton(
+                          icon: Icon(LineAwesomeIcons.ellipsis_v),
+                          onPressed: () => Get.dialog(Dialog(
+                            child: Container(
+                              height: 112,
+                              width: Get.width,
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    leading: Icon(
+                                      LineAwesomeIcons.edit,
+                                    ),
+                                    onTap: () => Get.off(
+                                      SelecionarLouvoresPage(
+                                        evento: evento,
+                                      ),
+                                    ),
+                                    title: AutoSizeText('Editar'),
                                   ),
-                                ),
-                                title: AutoSizeText('Editar'),
+                                  ListTile(
+                                    leading: Icon(
+                                      LineAwesomeIcons.trash,
+                                    ),
+                                    onTap: () {
+                                      Get.back();
+                                      AppDialog(
+                                              Container(
+                                                height: 36,
+                                                width: Get.width,
+                                                child: AutoSizeText(
+                                                  'Deseja realmente deletar o culto?',
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ), onConfirm: () {
+                                        Get.back();
+                                        evento.reference.delete();
+                                      },
+                                              textCancel: 'CANCELAR',
+                                              textConfirm: 'DELETAR',
+                                              colorConfirm: Colors.red)
+                                          .show();
+                                    },
+                                    title: AutoSizeText('Deletar'),
+                                  )
+                                ],
                               ),
-                              ListTile(
-                                leading: Icon(
-                                  LineAwesomeIcons.trash,
-                                ),
-                                onTap: () {
-                                  Get.back();
-                                  AppDialog(
-                                          Container(
-                                            height: 36,
-                                            width: Get.width,
-                                            child: AutoSizeText(
-                                              'Deseja realmente deletar o culto?',
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ), onConfirm: () {
-                                    Get.back();
-                                    evento.reference.delete();
-                                  },
-                                          textCancel: 'CANCELAR',
-                                          textConfirm: 'DELETAR',
-                                          colorConfirm: Colors.red)
-                                      .show();
-                                },
-                                title: AutoSizeText('Deletar'),
-                              )
-                            ],
-                          ),
+                            ),
+                          )),
                         ),
-                      )),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                        top: 16.0, bottom: 16.0, left: 16.0, right: 40),
-                    child: AutoSizeText(
-                      DateUtil.formatDateTimeDescrito(evento.horario),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Cores.primary,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
-                    ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(
+                                top: 16.0, left: 16.0, right: 40),
+                            child: AutoSizeText(
+                              DateUtil.formatDateTimeDescrito(evento.horario),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: Cores.primary,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          FutureBuilder<DocumentSnapshot>(
+                            future: evento.grupoReference.get(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                Grupo grupo = Grupo.fromSnapshot(snapshot.data);
+                                return InkWell(
+                                  onTap: () => Get.to(GrupoPage(grupo)),
+                                  child: Container(
+                                    margin: EdgeInsets.only(left: 16),
+                                    child: AutoSizeText(
+                                      grupo.nome,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        color: Cores.primary,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+
+                              return Container();
+                            },
+                          )
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -178,6 +216,8 @@ class CronogramaPage extends StatelessWidget {
   }
 
   List<Widget> louvoresList(Evento evento) {
+    print(evento);
+
     List<Widget> louvoresWidgets = [];
     evento.louvoresReference.forEach(
       (reference) {

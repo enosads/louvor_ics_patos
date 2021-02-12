@@ -4,10 +4,15 @@ import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:louvor_ics_patos/pages/home/home_page_controller.dart';
 
 class HomePage extends StatelessWidget {
+  int index;
+
+
+  HomePage({this.index = 0});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomePageController>(
-      init: HomePageController(),
+      init: HomePageController(index),
       builder: (_) {
         return Scaffold(
           body: Obx(
@@ -36,6 +41,10 @@ class HomePage extends StatelessWidget {
                       icon: Icon(LineAwesomeIcons.music),
                     ),
                     BottomNavigationBarItem(
+                      label: 'Grupos',
+                      icon: Icon(LineAwesomeIcons.group),
+                    ),
+                    BottomNavigationBarItem(
                       label: 'Perfil',
                       icon: Icon(LineAwesomeIcons.user),
                     ),
@@ -48,7 +57,4 @@ class HomePage extends StatelessWidget {
       },
     );
   }
-
-
-
 }

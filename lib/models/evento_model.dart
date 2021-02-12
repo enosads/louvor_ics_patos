@@ -4,20 +4,27 @@ import 'package:louvor_ics_patos/models/louvor_model.dart';
 class Evento {
   DocumentReference reference;
   DateTime horario;
+  DocumentReference grupoReference;
   List<DocumentReference> louvoresReference;
 
-  Evento({this.reference, this.horario, this.louvoresReference});
+  Evento(
+      {this.reference,
+      this.horario,
+      this.louvoresReference,
+      this.grupoReference});
 
   Evento.fromMap(Map<String, dynamic> map) {
     reference = map['reference'];
     horario = DateTime.parse(map['horario']);
     louvoresReference = map['louvores'].cast<DocumentReference>();
+
     verificarLouvoresReference();
   }
 
   Evento.fromSnapshot(DocumentSnapshot documentSnapshot) {
     reference = documentSnapshot.reference;
     horario = DateTime.parse(documentSnapshot.data()['horario']);
+    grupoReference = documentSnapshot.data()['grupoReference'];
     louvoresReference =
         documentSnapshot.data()['louvores'].cast<DocumentReference>();
     verificarLouvoresReference();
@@ -27,6 +34,7 @@ class Evento {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['horario'] = this.horario.toString();
     data['louvores'] = this.louvoresReference;
+    data['grupoRefence'] = this.grupoReference;
     return data;
   }
 

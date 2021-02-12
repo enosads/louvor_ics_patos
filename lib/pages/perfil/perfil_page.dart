@@ -3,11 +3,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
-import 'package:image_picker/image_picker.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:louvor_ics_patos/models/usuario_model.dart';
 import 'package:louvor_ics_patos/pages/login/login_page.dart';
 import 'package:louvor_ics_patos/pages/perfil/perfil_page_controller.dart';
@@ -60,7 +59,6 @@ class PerfilPage extends StatelessWidget {
                 ? LineAwesomeIcons.check
                 : LineAwesomeIcons.edit),
             onPressed: () {
-
               if (!_.editar.value) {
                 _.editar.value = true;
                 _.tNome.text = _.usuario.nome;
@@ -255,7 +253,7 @@ class PerfilPage extends StatelessWidget {
                         child: Icon(
                           _.foto != null
                               ? LineAwesomeIcons.check
-                              : LineAwesomeIcons.edit,
+                              : LineAwesomeIcons.camera,
                           color: Colors.white,
                         ),
                       ),

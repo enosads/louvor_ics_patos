@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:louvor_ics_patos/pages/home/home_page.dart';
 import 'package:louvor_ics_patos/services/firebase_service.dart';
@@ -38,8 +39,8 @@ class LoginPageController extends GetxController {
       OneSignalUtils.initOneSignal();
       Get.offAll(HomePage());
     } else {
-      AppDialog(Text('Não foi possível o login'),
-          textConfirm: 'OK', onConfirm: () => Get.back()).show();
+      Get.snackbar('Erro', 'Não foi possível o login',
+          backgroundColor: Colors.red, colorText: Colors.white);
     }
   }
 }

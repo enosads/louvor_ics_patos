@@ -28,7 +28,7 @@ class InstrumentoChip extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               selected: selecionado,
-              selectedColor:  selecionado ? getColor() : Colors.grey,
+              selectedColor: selecionado ? getColor() : Colors.grey,
               onSelected: (value) {
                 if (value) {
                   PerfilPageController.to.instrumentosSelecionados
@@ -50,7 +50,7 @@ class InstrumentoChip extends StatelessWidget {
             : instrumento == 'Contrabaixo'
                 ? Colors.orange
                 : instrumento == 'Vocal'
-                    ? Cores.accent
+                    ? Colors.indigo
                     : instrumento == 'Projetor'
                         ? Colors.lime
                         : Colors.grey;

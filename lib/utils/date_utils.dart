@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 class DateUtil {
-  static final DateFormat d = DateFormat("EEEE, dd 'de' MMMM - HH:mm", 'pt');
+  static final DateFormat d = DateFormat("EEEE, dd/MM - HH:mm", 'pt');
   static final DateFormat notificacao =
       DateFormat("EEEE, dd/MM/yyyy - HH:mm", 'pt');
   static final DateFormat formatterDateAndTime =

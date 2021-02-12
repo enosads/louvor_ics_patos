@@ -27,4 +27,9 @@ class Usuario {
     data['instrumentos'] = this.instrumentos;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Usuario{perfil: $perfil, nome: $nome, reference: $reference, instrumentos: $instrumentos}';
+  }
 }

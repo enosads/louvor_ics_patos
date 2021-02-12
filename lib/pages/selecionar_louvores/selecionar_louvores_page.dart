@@ -9,7 +9,6 @@ import 'package:louvor_ics_patos/pages/louvores/louvor_tile.dart';
 import 'package:louvor_ics_patos/pages/selecionar_louvores/selecionar_louvores_page_controller.dart';
 import 'package:louvor_ics_patos/utils/app_reorderable_list_view.dart';
 import 'package:louvor_ics_patos/utils/cores.dart';
-import 'package:louvor_ics_patos/widgets/app_dialog.dart';
 
 class SelecionarLouvoresPage extends StatelessWidget {
   Evento evento;
@@ -232,8 +231,7 @@ class SelecionarLouvoresPage extends StatelessWidget {
         louvoresWidgets.add(
           Container(
             key: ValueKey(louvor.reference.id),
-            child: LouvorTile(louvor,
-                desselecionarLouvores: true),
+            child: LouvorTile(louvor, desselecionarLouvores: true),
           ),
         );
       },
@@ -247,8 +245,10 @@ class SelecionarLouvoresPage extends StatelessWidget {
       backgroundColor: Cores.accent,
       onPressed: () {
         if (_.louvoresSelecionados.isEmpty) {
-          AppDialog(Text('Selecione pelo menos uma música para continuar'),
-              textConfirm: 'OK', onConfirm: () => Get.back()).show();
+          Get.snackbar('Erro', 'Selecione pelo menos uma música para continuar',
+              backgroundColor: Colors.red, colorText: Colors.white, );
+          // AppDialog(Text('Selecione pelo menos uma música para continuar'),
+          //     textConfirm: 'OK', onConfirm: () => Get.back()).show();
         } else {
           Get.to(HorarioPage(evento));
         }

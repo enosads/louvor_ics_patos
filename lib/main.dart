@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:louvor_ics_patos/pages/splash/splash_page.dart';
 import 'package:louvor_ics_patos/utils/cores.dart';
 
@@ -11,7 +11,6 @@ void main() {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
-
           accentColor: Cores.primary,
           primaryColor: Cores.primary),
       localizationsDelegates: [
