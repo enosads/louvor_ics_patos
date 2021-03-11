@@ -6,7 +6,6 @@ import 'package:louvor_ics_patos/pages/home/home_page.dart';
 import 'package:louvor_ics_patos/services/firebase_service.dart';
 import 'package:louvor_ics_patos/utils/onesignal_utils.dart';
 import 'package:louvor_ics_patos/utils/prefs.dart';
-import 'package:louvor_ics_patos/widgets/app_dialog.dart';
 
 class LoginPageController extends GetxController {
   final tEmail = TextEditingController(text: '');

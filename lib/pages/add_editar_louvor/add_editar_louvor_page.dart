@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:line_icons/line_icons.dart';
+
 import 'package:louvor_ics_patos/models/louvor_model.dart';
 import 'package:louvor_ics_patos/pages/add_editar_louvor/add_editar_louvor_page_controller.dart';
 import 'package:louvor_ics_patos/pages/add_editar_louvor/circular_tone_choice.dart';
@@ -24,12 +26,14 @@ class AdicionarEditarLouvorPage extends StatelessWidget {
       builder: (AdicionarEditarLouvorPageController _) {
         return Scaffold(
           appBar: AppBar(
+            brightness: Brightness.dark,
+
             title: Text(louvor == null ? 'Novo louvor' : 'Editar louvor'),
             centerTitle: true,
             actions: [
               IconButton(
                   icon: Icon(
-                    LineAwesomeIcons.check,
+                    LineIcons.check,
                   ),
                   onPressed: () => _.onClickSalvar())
             ],
@@ -49,7 +53,7 @@ class AdicionarEditarLouvorPage extends StatelessWidget {
           Row(
             children: [
               Icon(
-                LineAwesomeIcons.font,
+                LineIcons.font,
                 color: Cores.primary,
               ),
               SizedBox(
@@ -70,7 +74,7 @@ class AdicionarEditarLouvorPage extends StatelessWidget {
           Row(
             children: [
               Icon(
-                LineAwesomeIcons.user,
+                LineIcons.userAlt,
                 color: Cores.primary,
               ),
               SizedBox(
@@ -90,7 +94,7 @@ class AdicionarEditarLouvorPage extends StatelessWidget {
           Row(
             children: [
               Icon(
-                LineAwesomeIcons.youtube_play,
+                LineIcons.youtube,
                 color: Cores.primary,
               ),
               SizedBox(
@@ -111,7 +115,7 @@ class AdicionarEditarLouvorPage extends StatelessWidget {
           Row(
             children: [
               Icon(
-                LineAwesomeIcons.music,
+                LineIcons.music,
                 color: Cores.primary,
               ),
               SizedBox(

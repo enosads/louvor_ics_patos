@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:louvor_ics_patos/models/evento_model.dart';
 import 'package:louvor_ics_patos/models/grupo_model.dart';
 import 'package:louvor_ics_patos/pages/grupos/grupo_tile.dart';
@@ -24,14 +24,26 @@ class SelecionarGrupoPage extends StatelessWidget {
       ) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Selecione um grupo'),
+            backgroundColor: Colors.white,
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Cores.primary,
+              ),
+              onPressed: () => Get.back(),
+            ),
+            brightness: Brightness.light,
+            title: Text(
+              'Selecione um grupo',
+              style: TextStyle(color: Cores.primary),
+            ),
             centerTitle: true,
           ),
           body: buildBody(_),
           floatingActionButton: FloatingActionButton(
             onPressed: () => _.onClickSalvarCulto(),
-            child: Icon(LineAwesomeIcons.check),
-            backgroundColor: Cores.accent,
+            child: Icon(LineIcons.check),
+            backgroundColor: Cores.primary,
           ),
         );
       },
@@ -58,6 +70,7 @@ class SelecionarGrupoPage extends StatelessWidget {
             })
             .toList()
             .obs;
+        _.grupoSelecionado.value = _.grupos.first;
         return getListViewGrupos(_);
       },
     );

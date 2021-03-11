@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:line_icons/line_icon.dart';
+import 'package:line_icons/line_icons.dart';
+
 import 'package:louvor_ics_patos/models/grupo_model.dart';
 import 'package:louvor_ics_patos/models/usuario_model.dart';
 import 'package:louvor_ics_patos/pages/add_editar_grupo/adicionar_editar_grupo_page_controller.dart';
@@ -30,7 +33,11 @@ class AdicionarEditarGrupoPage extends StatelessWidget {
 
   AppBar buildAppBar(AdicionarEditarGrupoPageController _) {
     return AppBar(
-      title: Text('Selecione os membros'),
+      backgroundColor: Colors.white,
+      brightness: Brightness.light,
+      leading: IconButton(icon: Icon(Icons.arrow_back, color: Cores.primary,), onPressed: ()=>Get.back(),),
+
+      title: Text('Selecione os membros', style: TextStyle(color: Cores.primary),),
       centerTitle: true,
     );
   }
@@ -82,7 +89,7 @@ class AdicionarEditarGrupoPage extends StatelessWidget {
   FloatingActionButton buildFloatingActionButton(
       AdicionarEditarGrupoPageController _) {
     return FloatingActionButton(
-      backgroundColor: Cores.accent,
+      backgroundColor: Cores.primary,
       onPressed: () {
         if (_.membrosSelecionados.isEmpty) {
           Get.snackbar(
@@ -97,7 +104,7 @@ class AdicionarEditarGrupoPage extends StatelessWidget {
           ));
         }
       },
-      child: Icon(LineAwesomeIcons.arrow_right),
+      child: Icon(LineIcons.arrowRight),
     );
   }
 }

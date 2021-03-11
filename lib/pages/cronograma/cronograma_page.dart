@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:louvor_ics_patos/models/evento_model.dart';
 import 'package:louvor_ics_patos/models/grupo_model.dart';
 import 'package:louvor_ics_patos/models/louvor_model.dart';
@@ -24,6 +24,8 @@ class CronogramaPage extends StatelessWidget {
       builder: (CronogramaPageController _) {
         return Scaffold(
           appBar: AppBar(
+            brightness: Brightness.dark,
+
             title: AutoSizeText('Cronograma'),
             centerTitle: true,
           ),
@@ -31,8 +33,10 @@ class CronogramaPage extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             heroTag: 'cronograma_fab',
             onPressed: () => Get.to(SelecionarLouvoresPage()),
-            child: Icon(LineAwesomeIcons.plus),
-            backgroundColor: Cores.accent,
+            child: Icon(
+              LineIcons.plus,
+            ),
+            backgroundColor: Cores.primary,
           ),
         );
       },
@@ -80,11 +84,11 @@ class CronogramaPage extends StatelessWidget {
             DateTime.now().year, DateTime.now().month, DateTime.now().day))) {
           evento.reference.delete();
         }
-
+        print(Get.mediaQuery.textScaleFactor);
         return Card(
           child: Container(
-            height: (evento.louvoresReference.length * 70) + 60.0,
-            // height: 400,
+            height: (evento.louvoresReference.length * 75) +
+                63.0 * Get.mediaQuery.textScaleFactor,
             child: ReorderableListViewApp(
               padding: EdgeInsets.all(0),
               header: Column(
@@ -95,7 +99,7 @@ class CronogramaPage extends StatelessWidget {
                       Container(
                         alignment: Alignment.bottomRight,
                         child: IconButton(
-                          icon: Icon(LineAwesomeIcons.ellipsis_v),
+                          icon: Icon(LineIcons.verticalEllipsis),
                           onPressed: () => Get.dialog(Dialog(
                             child: Container(
                               height: 112,
@@ -104,7 +108,7 @@ class CronogramaPage extends StatelessWidget {
                                 children: [
                                   ListTile(
                                     leading: Icon(
-                                      LineAwesomeIcons.edit,
+                                      LineIcons.edit,
                                     ),
                                     onTap: () => Get.off(
                                       SelecionarLouvoresPage(
@@ -115,7 +119,7 @@ class CronogramaPage extends StatelessWidget {
                                   ),
                                   ListTile(
                                     leading: Icon(
-                                      LineAwesomeIcons.trash,
+                                      LineIcons.trash,
                                     ),
                                     onTap: () {
                                       Get.back();
@@ -225,7 +229,7 @@ class CronogramaPage extends StatelessWidget {
         louvoresWidgets.add(
           Container(
             key: ValueKey(reference.id),
-            height: 70,
+            height: 75,
             child: StreamBuilder<DocumentSnapshot>(
               stream: reference.snapshots(),
               builder: (context, snapshot) {

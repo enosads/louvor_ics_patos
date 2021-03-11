@@ -1,10 +1,10 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:louvor_ics_patos/utils/api_response.dart';
-import 'package:louvor_ics_patos/utils/http_helper.dart' as httpHelper;
 
-class OnesignalService {
-  static Future<ApiResponse<bool>> notificar(
+class OnesignalService  extends GetConnect{
+   Future<ApiResponse<bool>> notificar(
       String headings, String content) async {
     try {
       var url = "https://onesignal.com/api/v1/notifications";
@@ -18,14 +18,14 @@ class OnesignalService {
       };
 
       String s = json.encode(params);
-      var response = await httpHelper.post(url, body: s, header: {
+      var response = await post(url,  s, headers: {
         "Content-Type": "application/json",
         "Authorization":
             "Basic YTZmNzczMDQtNDk5ZS00ZmJmLWJhYWUtMzllNzU1NjZmMTAy"
       });
       print('POST >> $url  Status: ${response.statusCode}');
 
-      Map mapResponse = json.decode(utf8.decode(response.bodyBytes));
+      Map mapResponse = json.decode(response.bodyString);
       print(mapResponse);
       if (response.statusCode == 200) {
         return ApiResponse.ok(result: true);

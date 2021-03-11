@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:line_icons/line_icons.dart';
+
 import 'package:louvor_ics_patos/models/evento_model.dart';
 import 'package:louvor_ics_patos/models/louvor_model.dart';
 import 'package:louvor_ics_patos/pages/horario_page/horario_page.dart';
@@ -31,6 +34,8 @@ class SelecionarLouvoresPage extends StatelessWidget {
 
   AppBar buildAppBar(SelecionarLouvoresPageController _) {
     return AppBar(
+      brightness: Brightness.dark,
+
       automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       title: Stack(
@@ -46,9 +51,9 @@ class SelecionarLouvoresPage extends StatelessWidget {
                 color: Colors.grey[100]),
           ),
           TextField(
-            style: TextStyle(fontSize: 16, color: Cores.accent),
+            style: TextStyle(fontSize: 16, color: Cores.primary),
             controller: _.tBusca,
-            cursorColor: Cores.accent,
+            cursorColor: Cores.primary,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(top: 16, bottom: 16, left: 40),
               border: InputBorder.none,
@@ -63,10 +68,13 @@ class SelecionarLouvoresPage extends StatelessWidget {
           ),
           Positioned(
             left: 0,
-            child: IconButton(
-              splashRadius: 1,
-              icon: Icon(Icons.arrow_back, color: Colors.grey[500]),
-              onPressed: () => Get.back(),
+            child: Container(
+              margin: EdgeInsets.only(right: 8),
+              child: IconButton(
+                splashRadius: 1,
+                icon: Icon(LineIcons.arrowLeft, color: Colors.grey[500]),
+                onPressed: () => Get.back(),
+              ),
             ),
           ),
           Positioned(
@@ -77,13 +85,9 @@ class SelecionarLouvoresPage extends StatelessWidget {
                   _.tBusca.text = '';
                   _.busca.value = '';
                 },
-                child: Icon(
-                    _.busca.value.isNotEmpty
-                        ? LineAwesomeIcons.times
-                        : LineAwesomeIcons.search,
-                    color: _.busca.value.isNotEmpty
-                        ? Cores.accent
-                        : Colors.grey[500]),
+                child: _.busca.value.isNotEmpty ? Icon(
+                       LineIcons.times,
+                    color: Colors.grey[500]) : Container(),
               ),
             ),
           ),
@@ -188,7 +192,7 @@ class SelecionarLouvoresPage extends StatelessWidget {
           children: [
             Obx(
               () => Container(
-                height: (_.louvoresSelecionados.length * 70) + 60.0,
+                height: (_.louvoresSelecionados.length * 70) + 70.0,
                 child: ReorderableListViewApp(
                   header: Container(
                     margin: EdgeInsets.all(16.0),
@@ -242,7 +246,7 @@ class SelecionarLouvoresPage extends StatelessWidget {
   FloatingActionButton buildFloatingActionButton(
       SelecionarLouvoresPageController _) {
     return FloatingActionButton(
-      backgroundColor: Cores.accent,
+      backgroundColor: Cores.primary,
       onPressed: () {
         if (_.louvoresSelecionados.isEmpty) {
           Get.snackbar('Erro', 'Selecione pelo menos uma música para continuar',
@@ -253,7 +257,7 @@ class SelecionarLouvoresPage extends StatelessWidget {
           Get.to(HorarioPage(evento));
         }
       },
-      child: Icon(LineAwesomeIcons.arrow_right),
+      child: Icon(LineIcons.arrowRight),
     );
   }
 }

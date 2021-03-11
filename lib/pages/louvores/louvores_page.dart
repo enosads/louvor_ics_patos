@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:line_icons/line_icons.dart';
+
 import 'package:louvor_ics_patos/models/louvor_model.dart';
 import 'package:louvor_ics_patos/pages/add_editar_louvor/add_editar_louvor_page.dart';
 import 'package:louvor_ics_patos/pages/louvores/louvor_tile.dart';
@@ -19,6 +21,8 @@ class LouvoresPage extends StatelessWidget {
           builder: (LouvoresPageController _) {
             return Scaffold(
               appBar: AppBar(
+                brightness: Brightness.light,
+
                 automaticallyImplyLeading: false,
                 backgroundColor: Colors.white,
                 title: Stack(
@@ -38,9 +42,9 @@ class LouvoresPage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: TextField(
-                            style: TextStyle(fontSize: 16, color: Cores.accent),
+                            style: TextStyle(fontSize: 16, color: Cores.primary),
                             controller: _.tBusca,
-                            cursorColor: Cores.accent,
+                            cursorColor: Cores.primary,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(
                                   top: 16, bottom: 16, left: 16),
@@ -62,11 +66,9 @@ class LouvoresPage extends StatelessWidget {
                               _.tBusca.text = '';
                               _.busca.value = '';
                             },
-                            child: Icon(
-                                _.busca.value.isNotEmpty
-                                    ? LineAwesomeIcons.times
-                                    : LineAwesomeIcons.search,
-                                color: Colors.grey[500]),
+                            child: _.busca.value.isNotEmpty ? Icon(
+                                   LineIcons.times,
+                                color: Colors.grey[500]): Container(),
                           ),
                         ),
                         Obx(() => PopupMenuButton(
@@ -78,11 +80,11 @@ class LouvoresPage extends StatelessWidget {
                                       _.status.value,
                                       style: TextStyle(
                                         fontSize: 16,
-                                        color: Cores.accent,
+                                        color: Cores.primary,
                                       ),
                                     ),
                                     Icon(Icons.arrow_drop_down,
-                                        color: Cores.accent)
+                                        color: Cores.primary)
                                   ],
                                 ),
                                 alignment: Alignment.center,
@@ -91,35 +93,35 @@ class LouvoresPage extends StatelessWidget {
                                 PopupMenuItem(
                                   child: Text(
                                     'Todos',
-                                    style: TextStyle(color: Cores.accent),
+                                    style: TextStyle(color: Cores.primary),
                                   ),
                                   value: 'Todos',
                                 ),
                                 PopupMenuItem(
                                   child: Text(
                                     'Pronto',
-                                    style: TextStyle(color: Cores.accent),
+                                    style: TextStyle(color: Cores.primary),
                                   ),
                                   value: 'Pronto',
                                 ),
                                 PopupMenuItem(
                                   child: Text(
                                     'Ensaiando',
-                                    style: TextStyle(color: Cores.accent),
+                                    style: TextStyle(color: Cores.primary),
                                   ),
                                   value: 'Ensaiando',
                                 ),
                                 PopupMenuItem(
                                   child: Text(
                                     'Sugestão',
-                                    style: TextStyle(color: Cores.accent),
+                                    style: TextStyle(color: Cores.primary),
                                   ),
                                   value: 'Sugestão',
                                 ),
                                 PopupMenuItem(
                                   child: Text(
                                     'Futuro',
-                                    style: TextStyle(color: Cores.accent),
+                                    style: TextStyle(color: Cores.primary),
                                   ),
                                   value: 'Futuro',
                                 )
@@ -238,8 +240,8 @@ class LouvoresPage extends StatelessWidget {
 
         Get.to(AdicionarEditarLouvorPage());
       },
-      child: Icon(LineAwesomeIcons.plus),
-      backgroundColor: Cores.accent,
+      child: Icon(LineIcons.plus),
+      backgroundColor: Cores.primary,
     );
   }
 }

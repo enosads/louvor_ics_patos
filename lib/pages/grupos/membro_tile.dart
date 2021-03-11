@@ -35,7 +35,7 @@ class MembroTile extends StatelessWidget {
           : null,
       child: Container(
         alignment: Alignment.center,
-        color: selecionada ? Cores.accent : Colors.white,
+        color: selecionada ? Cores.primary : Colors.white,
         child: Row(
           children: [
             Expanded(

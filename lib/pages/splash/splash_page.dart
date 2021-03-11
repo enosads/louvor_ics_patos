@@ -10,7 +10,7 @@ class SplashPage extends StatelessWidget {
       init: SplashPageController(),
       builder: (SplashPageController _) {
         return Container(
-          color: Cores.primary,
+          color: Colors.white,
           child: Center(
             child: Hero(
               tag: 'hero',

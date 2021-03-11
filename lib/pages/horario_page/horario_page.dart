@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:line_icons/line_icons.dart';
+
 import 'package:louvor_ics_patos/models/evento_model.dart';
 import 'package:louvor_ics_patos/pages/horario_page/horario_page_controller.dart';
 import 'package:louvor_ics_patos/utils/cores.dart';
@@ -22,14 +24,29 @@ class HorarioPage extends StatelessWidget {
       ) {
         return Scaffold(
           appBar: AppBar(
+            brightness: Brightness.dark,
             title: Text(evento == null ? 'Horário' : 'Editar horário'),
             centerTitle: true,
           ),
           body: _body(_),
           floatingActionButton: FloatingActionButton(
-            onPressed: () => Get.to(SelecionarGrupoPage(evento)),
-            child: Icon(LineAwesomeIcons.arrow_right),
-            backgroundColor: Cores.accent,
+            onPressed: () {
+              if (HorarioPageController.to.formKeyData.currentState
+                      .validate() &&
+                  HorarioPageController.to.formKeyHora.currentState
+                      .validate()) {
+                DateTime horario = DateUtil.parse(
+                    '${HorarioPageController.to.tData.text} - ${HorarioPageController.to.tHora.text}');
+                if (horario.isAfter(DateTime.now())) {
+                  Get.to(SelecionarGrupoPage(evento));
+                } else {
+                  Get.snackbar('Erro', 'O horário não pode está no passado.',
+                      backgroundColor: Colors.red, colorText: Colors.white);
+                }
+              }
+            },
+            child: Icon(LineIcons.arrowRight),
+            backgroundColor: Cores.primary,
           ),
         );
       },
@@ -48,7 +65,7 @@ class HorarioPage extends StatelessWidget {
           child: Row(
             children: [
               Icon(
-                LineAwesomeIcons.calendar,
+                LineIcons.calendar,
                 color: Cores.primary,
               ),
               SizedBox(
@@ -81,8 +98,7 @@ class HorarioPage extends StatelessWidget {
         Obx(
           () => Wrap(
             children: [
-              diaDaSemaChoiceChip(
-                  _, 'Próxima quinta-feira', DateTime.thursday),
+              diaDaSemaChoiceChip(_, 'Próxima quinta-feira', DateTime.thursday),
               SizedBox(
                 width: 10,
               ),
@@ -98,7 +114,7 @@ class HorarioPage extends StatelessWidget {
           child: Row(
             children: [
               Icon(
-                LineAwesomeIcons.clock_o,
+                LineIcons.clock,
                 color: Cores.primary,
               ),
               SizedBox(

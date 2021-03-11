@@ -4,14 +4,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:line_icons/line_icons.dart';
+
 import 'package:louvor_ics_patos/models/usuario_model.dart';
 import 'package:louvor_ics_patos/pages/login/login_page.dart';
 import 'package:louvor_ics_patos/pages/perfil/perfil_page_controller.dart';
 import 'package:louvor_ics_patos/services/firebase_service.dart';
 import 'package:louvor_ics_patos/utils/cores.dart';
+import 'package:louvor_ics_patos/widgets/app_dialog.dart';
 import 'package:louvor_ics_patos/widgets/instrumento_chip.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -51,26 +54,72 @@ class PerfilPage extends StatelessWidget {
   AppBar buildAppBar(PerfilPageController _) {
     return AppBar(
       title: Text('Perfil'),
+      brightness: Brightness.dark,
       centerTitle: true,
       actions: [
         Obx(
-          () => IconButton(
-            icon: Icon(_.editar.value
-                ? LineAwesomeIcons.check
-                : LineAwesomeIcons.edit),
-            onPressed: () {
-              if (!_.editar.value) {
-                _.editar.value = true;
-                _.tNome.text = _.usuario.nome;
-                _.instrumentosSelecionados = [].obs;
-                _.usuario.instrumentos.forEach(
-                  (instrumento) => _.instrumentosSelecionados.add(instrumento),
-                );
-              } else {
-                _.salvar();
-              }
-            },
-          ),
+          () => _.editar.value
+              ? IconButton(
+                  icon: Icon(LineIcons.check),
+                  onPressed: () {
+                    _.salvar();
+                  },
+                )
+              : PopupMenuButton(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      children: [
+                        Icon(
+                          LineIcons.verticalEllipsis,
+                        )
+                      ],
+                    ),
+                    alignment: Alignment.center,
+                  ),
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      child: Text(
+                        'Editar',
+                        style: TextStyle(color: Cores.primary),
+                      ),
+                      value: 'Editar',
+                    ),
+                    PopupMenuItem(
+                      child: Text(
+                        'Sair',
+                        style: TextStyle(color: Cores.primary),
+                      ),
+                      value: 'Sair',
+                    ),
+                  ],
+                  onSelected: (value) {
+                    Get.focusScope.unfocus();
+
+                    if (value == 'Editar') {
+                      _.editar.value = true;
+                      _.tNome.text = _.usuario.nome;
+                      _.instrumentosSelecionados = [].obs;
+                      _.usuario.instrumentos.forEach(
+                        (instrumento) =>
+                            _.instrumentosSelecionados.add(instrumento),
+                      );
+                    } else if (value == 'Sair') {
+                      AppDialog(
+                        Text('Deseja realmente sair?'),
+                        onCancel: () => Get.back(),
+                        colorConfirm: Colors.red,
+                        textConfirm: 'Sair',
+                        textCancel: 'Cancelar',
+                        onConfirm: () {
+                          FirebaseService.logout();
+                          Get.offAll(LoginPage());
+                        }
+                      ).show();
+
+                    }
+                  },
+                ),
         ),
       ],
     );
@@ -96,7 +145,7 @@ class PerfilPage extends StatelessWidget {
                             child: TextFormField(
                               controller: _.tNome,
                               textAlign: TextAlign.center,
-                              cursorColor: Cores.accent,
+                              cursorColor: Cores.primary,
                               decoration: InputDecoration(
                                 hintText: "Digite seu nome",
                               ),
@@ -121,20 +170,6 @@ class PerfilPage extends StatelessWidget {
             ),
           ],
         ),
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 8),
-          alignment: Alignment.bottomCenter,
-          child: FlatButton(
-            child: Text(
-              'SAIR',
-              style: TextStyle(color: Colors.red),
-            ),
-            onPressed: () {
-              FirebaseService.logout();
-              Get.offAll(LoginPage());
-            },
-          ),
-        )
       ],
     );
   }
@@ -248,12 +283,10 @@ class PerfilPage extends StatelessWidget {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Cores.accent,
+                          color: Cores.primary,
                         ),
                         child: Icon(
-                          _.foto != null
-                              ? LineAwesomeIcons.check
-                              : LineAwesomeIcons.camera,
+                          _.foto != null ? LineIcons.check : LineIcons.camera,
                           color: Colors.white,
                         ),
                       ),
@@ -272,7 +305,7 @@ class PerfilPage extends StatelessWidget {
                     color: Colors.red,
                   ),
                   child: Icon(
-                    LineAwesomeIcons.times,
+                    LineIcons.times,
                     color: Colors.white,
                   ),
                 ),

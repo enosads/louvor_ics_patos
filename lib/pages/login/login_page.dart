@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:get/get.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:line_icons/line_icons.dart';
+
 import 'package:louvor_ics_patos/pages/login/login_page_controller.dart';
 import 'package:louvor_ics_patos/utils/cores.dart';
 import 'package:louvor_ics_patos/widgets/app_button.dart';
@@ -61,9 +63,9 @@ class LoginPage extends StatelessWidget {
                                 margin: EdgeInsets.only(right: 8),
                                 child: IconButton(
                                   icon: Icon(
-                                    _.obscureTextSenha.value
-                                        ? LineAwesomeIcons.eye
-                                        : LineAwesomeIcons.eye_slash,
+                                    !_.obscureTextSenha.value
+                                        ? LineIcons.eye
+                                        : LineIcons.eyeSlash,
                                     color: Cores.primary,
                                   ),
                                   onPressed: _.onPressedObscureSenha,

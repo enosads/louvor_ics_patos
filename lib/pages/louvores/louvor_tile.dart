@@ -1,15 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:line_icons/line_icons.dart';
+
 import 'package:louvor_ics_patos/models/louvor_model.dart';
 import 'package:louvor_ics_patos/pages/louvores/louvor_dialog.dart';
 import 'package:louvor_ics_patos/pages/selecionar_louvores/selecionar_louvores_page_controller.dart';
 import 'package:louvor_ics_patos/utils/cores.dart';
 import 'package:louvor_ics_patos/utils/substring_highlight_app.dart';
-import 'package:louvor_ics_patos/utils/substring_highlight_app.dart';
-
-import 'package:substring_highlight/substring_highlight.dart';
 
 class LouvorTile extends StatelessWidget {
   Louvor louvor;
@@ -30,7 +28,7 @@ class LouvorTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 70,
-      color: selecionada ? Cores.accent : Colors.white,
+      color: selecionada ? Cores.primary : Colors.white,
       child: InkWell(
         onTap: desselecionarLouvores
             ? () {
@@ -59,6 +57,7 @@ class LouvorTile extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
             title: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
@@ -73,7 +72,7 @@ class LouvorTile extends StatelessWidget {
                     textStyleHighlight: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: selecionada ? Colors.white : Cores.accent),
+                        color: selecionada ? Colors.white : Cores.primary),
                   ),
                 ),
                 Container(
@@ -85,15 +84,15 @@ class LouvorTile extends StatelessWidget {
                       color: selecionada ? Colors.white : Colors.black,
                     ),
                     textStyleHighlight: TextStyle(
-                        color: selecionada ? Colors.black : Cores.accent),
+                        color: selecionada ? Colors.black : Cores.primary),
                   ),
                 ),
               ],
             ),
             trailing: louvor.status == "Pronto" && pronto
                 ? Icon(
-                    LineAwesomeIcons.check,
-                    color: Cores.accent,
+              LineIcons.check,
+                    color: Cores.primary,
                   )
                 : null,
           ),

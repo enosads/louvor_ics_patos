@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ void main() {
       ],
       supportedLocales: [const Locale('pt', 'BR')],
       home: SplashPage(),
+
     ),
   );
 }

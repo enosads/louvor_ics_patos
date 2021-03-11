@@ -5,8 +5,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:line_icons/line_icons.dart';
+
 import 'package:louvor_ics_patos/models/louvor_model.dart';
 import 'package:louvor_ics_patos/pages/add_editar_louvor/add_editar_louvor_page.dart';
 import 'package:louvor_ics_patos/utils/url_launch.dart';
@@ -63,7 +65,7 @@ class LouvorDialog extends StatelessWidget {
                         child: Row(
                           children: [
                             Icon(
-                              LineAwesomeIcons.youtube_play,
+                              LineIcons.youtube,
                               color: louvor.youtube.isBlank
                                   ? Colors.grey
                                   : Colors.red,
@@ -94,7 +96,7 @@ class LouvorDialog extends StatelessWidget {
                         child: Row(
                           children: [
                             Icon(
-                              LineAwesomeIcons.music,
+                              LineIcons.music,
                               color: louvor.cifra.isBlank
                                   ? Colors.grey
                                   : Colors.orange,
@@ -145,7 +147,7 @@ class LouvorDialog extends StatelessWidget {
                 Container(
                   alignment: Alignment.bottomRight,
                   child: IconButton(
-                    icon: Icon(LineAwesomeIcons.edit),
+                    icon: Icon(LineIcons.edit),
                     onPressed: () {
                       Get.back();
                       return Get.to(

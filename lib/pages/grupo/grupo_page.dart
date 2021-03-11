@@ -3,11 +3,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
 import 'package:get/get.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:louvor_ics_patos/models/grupo_model.dart';
 import 'package:louvor_ics_patos/models/usuario_model.dart';
 import 'package:louvor_ics_patos/pages/add_editar_grupo/adicionar_editar_grupo_page.dart';
+import 'package:louvor_ics_patos/utils/cores.dart';
 import 'package:louvor_ics_patos/widgets/app_dialog.dart';
 import 'package:louvor_ics_patos/widgets/instrumento_chip.dart';
 
@@ -20,40 +22,63 @@ class GrupoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        brightness: Brightness.dark,
+
         title: Text(grupo.nome),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: Icon(LineAwesomeIcons.trash),
-            onPressed: () async {
-              var querySnapshot = await FirebaseFirestore.instance
-                  .collection('eventos')
-                  .where('grupoReference', isEqualTo: grupo.reference)
-                  .get();
-              if (querySnapshot.size > 0) {
-                Get.snackbar('Erro',
-                    'Não é possível apagar esse: Há cultos no cronograma em que ele está vinculado.',
-                    backgroundColor: Colors.red, colorText: Colors.white);
+          PopupMenuButton(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Icon(LineIcons.verticalEllipsis),
+              alignment: Alignment.center,
+            ),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: Text(
+                  'Editar',
+                ),
+                value: 'Editar',
+              ),
+              PopupMenuItem(
+                child: Text(
+                  'Excluir',
+                ),
+                value: 'Excluir',
+              ),
+            ],
+            onSelected: (value) async {
+              Get.focusScope.unfocus();
+
+              if (value == 'Editar') {
+                Get.to(
+                  AdicionarEditarGrupoPage(
+                    grupo: grupo,
+                  ),
+                );
               } else {
-                AppDialog(Text('Deseja realmente deletar este grupo?'),
-                    textCancel: 'Cancelar',
-                    textConfirm: 'Deletar',
-                    colorConfirm: Colors.red, onConfirm: () {
-                  grupo.reference.delete();
-                  Get.back();
-                  Get.back();
-                }).show();
+                var querySnapshot = await FirebaseFirestore.instance
+                    .collection('eventos')
+                    .where('grupoReference', isEqualTo: grupo.reference)
+                    .get();
+                if (querySnapshot.size > 0) {
+                  Get.snackbar('Erro',
+                      'Não é possível apagar esse: Há cultos no cronograma em que ele está vinculado.',
+                      backgroundColor: Colors.red, colorText: Colors.white);
+                } else {
+                  AppDialog(Text('Deseja realmente deletar este grupo?'),
+                      textCancel: 'Cancelar',
+                      textConfirm: 'Deletar',
+                      colorConfirm: Colors.red, onConfirm: () {
+                    grupo.reference.delete();
+                    Get.back();
+                    Get.back();
+                  }).show();
+                }
               }
             },
           ),
-          IconButton(
-            icon: Icon(LineAwesomeIcons.edit),
-            onPressed: () => Get.to(
-              AdicionarEditarGrupoPage(
-                grupo: grupo,
-              ),
-            ),
-          ),
+
         ],
       ),
       body: buildBody(),

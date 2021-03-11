@@ -34,7 +34,7 @@ class Evento {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['horario'] = this.horario.toString();
     data['louvores'] = this.louvoresReference;
-    data['grupoRefence'] = this.grupoReference;
+    data['grupoReference'] = this.grupoReference;
     return data;
   }
 

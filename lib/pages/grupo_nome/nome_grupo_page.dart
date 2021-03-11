@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:line_icons/line_icons.dart';
+
 import 'package:louvor_ics_patos/models/grupo_model.dart';
 import 'package:louvor_ics_patos/pages/grupo_nome/nome_grupo_page_controller.dart';
 import 'package:louvor_ics_patos/utils/cores.dart';
@@ -20,6 +22,8 @@ class NomeGrupoPage extends StatelessWidget {
       ) {
         return Scaffold(
           appBar: AppBar(
+            brightness: Brightness.dark,
+
             title: Text(
                 grupo == null ? 'Nome do grupo' : 'Altere o nome do grupo'),
             centerTitle: true,
@@ -27,8 +31,8 @@ class NomeGrupoPage extends StatelessWidget {
           body: _body(_),
           floatingActionButton: FloatingActionButton(
             onPressed: () => _.salvaGrupo(),
-            child: Icon(LineAwesomeIcons.check),
-            backgroundColor: Cores.accent,
+            child: Icon(LineIcons.check),
+            backgroundColor: Cores.primary,
           ),
         );
       },
@@ -48,7 +52,7 @@ class NomeGrupoPage extends StatelessWidget {
             child: Row(
               children: [
                 Icon(
-                  LineAwesomeIcons.font,
+                  LineIcons.font,
                   color: Cores.primary,
                 ),
                 SizedBox(

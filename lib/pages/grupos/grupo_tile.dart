@@ -24,7 +24,7 @@ class GrupoTile extends StatelessWidget {
               SelecionarGrupoPageController.to.grupoSelecionado.value = grupo
           : () => Get.to(GrupoPage(grupo)),
       child: Container(
-        color: selecionado ? Cores.accent : Colors.transparent,
+        color: selecionado ? Cores.primary : Colors.transparent,
         height: 100,
         child: Column(
           children: [
